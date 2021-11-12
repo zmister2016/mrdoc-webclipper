@@ -1,6 +1,7 @@
 ﻿self.title = $('#titleinp'); //popup页面的标题栏
-layer = layui.layer;
-form = layui.form;
+var layer = layui.layer;
+var form = layui.form;
+var mrdocClipperOptions = chrome.storage.local;
 
 //点击关闭按钮
 $('#closebtn').click(function(e) {
@@ -232,8 +233,21 @@ selectProjectsHandler = function(projects){
         else {
             pro.append('<option value="' + project.id + '">[受限]' + project.name + '</option>');
         }
-    }
-    form.render();
+    };
+    // 选中默认文集
+    mrdocClipperOptions.get(['defaultProject'], function(r){
+        console.log("当前默认文集：",r['defaultProject'])
+        if(r['defaultProject']){
+            var sel_pro_list = $('dl.layui-anim dd');
+            for(var i = 0;i < sel_pro_list.length; i++){
+                if(sel_pro_list[i].getAttribute('lay-value') == r['defaultProject']){
+                    var sel_pro = 'dd[lay-value=' + sel_pro_list[i].getAttribute('lay-value') + ']';
+                    $('#projects').siblings("div.layui-form-select").find('dl').find(sel_pro).click();
+                }
+            };                        
+        }
+    });
+    form.render("select");
 };
 
 // 处理background发来来的上传图片的URL，将其添加到文本编辑器中

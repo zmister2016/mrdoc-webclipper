@@ -15,6 +15,7 @@
             //账户密钥
             mrdocClipperOptions.get(['accountKey'],function(r){
                 $("input[name='mrdoc_account_key']").val(r['accountKey']);
+                getProjects();
             });
             // 鼠标自动选择
             mrdocClipperOptions.get(['mouseAutoSelect'], function(r){
@@ -31,6 +32,16 @@
                     form.render('checkbox');
                 }
             });
+            // 默认文集
+            mrdocClipperOptions.get(['defaultProject'], function(r){
+                console.log(r['defaultProject'])
+                if(r['defaultProject']){
+                    // 设置启用
+                    // console.log('鼠标自动选择')
+                    $("#project-list").val(r['defaultProject'])
+                    form.render('select');                         
+                }
+            });
             //转存图片
             // mrdocClipperOptions.get(['retrieveImg'],function(r){
             //     if(r['retrieveImg'] == true){
@@ -40,10 +51,15 @@
         }
     }
 	$(function(){
-		mrdocClipperSettings.init();
+        mrdocClipperSettings.init();
 	});
 })(jQuery);
 
+
+// 点击更新文集列表
+$("#getProjects").click(function(){
+    getProjects();
+})
 
 //点击保存按钮
 $('#save-btn').click(function () {
@@ -55,8 +71,9 @@ saveSettingOptions = function(){
     mrdocClipperOptions = chrome.storage.local
     mrdocClipperOptions.set({'serverUrl':$("input[name='mrdoc_server_url']").val()})
     mrdocClipperOptions.set({'accountKey':$("input[name='mrdoc_account_key']").val()})
+    mrdocClipperOptions.set({'defaultProject':$("#project-list").val()})
     // mrdocClipperOptions.set({'retrieveImg':$("#retrieveimage").prop('checked')})
-    layer.msg("保存成功")
+    layer.msg("保存成功",{icon:1})
 };
 
 //点击验证按钮
@@ -73,12 +90,12 @@ checkAccountKey = function(server_url,account_key){
     $('button.layui-btn').addClass('layui-btn-disabled');
     $.get(server_url+'/api/get_projects/?token='+account_key,function(r){
         if(r.status){
-            layer.msg("验证成功")
+            layer.msg("验证成功",{icon:1})
         }else{
-            layer.msg("验证失败")
+            layer.msg("验证失败",{icon:2})
         }
     }).fail(function(){
-        layer.msg('连接MrDoc出错')
+        layer.msg('连接MrDoc出错',{icon:2})
     })
     layer.closeAll('loading');
     $('button.layui-btn').attr("disabled",false);
@@ -120,3 +137,47 @@ $("#dashang").click(function(r){
         content: $('#dashang_img')
       });
 })
+
+// 获取文集
+getProjects = function(){
+    var self = this;
+    var form = layui.form;
+    var url = $('#mrdoc_url').val();
+    var token= $('#mrdoc_token').val();
+    // console.log(data)
+    // self.url = data.url,self.token = data.token;
+    $.ajax({
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        },
+        type: 'GET',
+        url: url+'/api/get_projects/?token='+token,
+        success: function(r) {
+            // console.log(r)
+            if(r.status){
+                layer.msg("文集列表已更新！",{icon:1})
+                $("#project-list").empty();
+                $("#project-list").append(new Option("请选择文集", "0"));
+                $.each(r.data, function(index, item) {                   
+                    $('#project-list').append(new Option(item.name,item.id));
+                });
+                // 默认文集
+                chrome.storage.local.get(['defaultProject'], function(r){
+                    console.log(r['defaultProject'])
+                    if(r['defaultProject']){
+                        // 设置启用
+                        // console.log('鼠标自动选择')
+                        $("#project-list").val(r['defaultProject'])
+                        form.render('select');                         
+                    }
+                });
+                form.render()
+            }else{
+                layer.msg("获取文集列表失败",{icon:2})
+            }
+        },
+        error: function(r) {
+            layer.msg("获取文集列表异常",{icon:2})
+        }
+    });
+};

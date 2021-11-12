@@ -1,8 +1,8 @@
 {
 	"manifest_version": 2,
-	"name": "MrDoc·速记",
+	"name": "MrDoc速记",
 	"version": "1.0",
-	"description": "快速记录你的想法到MrDoc觅道文档",
+	"description": "快速记录和收藏文档、图片到 MrDoc",
 	"author": "zmister",
 	"icons":
 	{
@@ -12,7 +12,7 @@
 	"browser_action": 
 	{
 		"default_icon": "img/128x128.png",
-		"default_title": "MrDoc·速记"
+		"default_title": "MrDoc速记"
 	},
 	"content_scripts": 
 	[
@@ -43,9 +43,10 @@
 		"http://*/*", 
 		"https://*/*", 
 		"unlimitedStorage", 
-		"storage" 
+		"storage" ,
+		"contextMenus"
 	],
-	"homepage_url": "http://mrdoc.zmister.com",
+	"homepage_url": "https://mrdoc.pro",
 	"background": {
 		"scripts": [ 
 			"js/lib/jquery-2.1.1.min.js", 

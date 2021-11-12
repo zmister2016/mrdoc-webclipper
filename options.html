@@ -14,7 +14,6 @@
     <style>
         body{
             background-color: #fafafa;
-            text-align: center;
         }
         .login-form{
             margin-top: 15%;
@@ -31,29 +30,42 @@
             width: auto;
         }
         .layui-form-onswitch {
-        border-color: #1E9FFF;
-        background-color: #1E9FFF;
-    }
+            border-color: #1E9FFF;
+            background-color: #1E9FFF;
+        }
+        .layui-input-inline{
+            margin-left: 23px;
+        }
     </style>
 </head>
 <body>
     <div class="layui-container" style="width: 650px;">
         <div class="login-form">
-            <div class="layui-form" >
-                <div class="layui-form-item">
-                    <h2><strong>MrDoc速记 - 选项</strong></h2>
+            <div class="layui-form" lay-filter="optionsForm">
+                <div class="layui-form-item" style="text-align: center;">
+                    <h2><strong>MrDoc速记 - 设置中心</strong></h2>
                 </div>
+                <hr>
                 <div class="layui-form-item" pane>
                     <label class="layui-form-label">MrDoc地址</label>
                     <div class="layui-input-block">
-                      <input type="text" id="mrdoc_url" name="mrdoc_server_url" placeholder="请输入MrDoc站点地址" autocomplete="off" class="layui-input" >
+                      <input type="text" id="mrdoc_url" name="mrdoc_server_url" placeholder="例如：https://doc.mrdoc.pro" autocomplete="off" class="layui-input" >
                     </div>
                 </div>
                 <div class="layui-form-item" pane>
                     <label class="layui-form-label">用户Token</label>
                     <div class="layui-input-block">
-                      <input type="text" id="mrdoc_token" name="mrdoc_account_key" placeholder="请输入用户token" autocomplete="off" class="layui-input">
+                      <input type="text" id="mrdoc_token" name="mrdoc_account_key" placeholder="获取地址为：用户中心 - 个人管理 - Token管理" autocomplete="off" class="layui-input">
                     </div>
+                </div>
+                <div class="layui-form-item" pane>
+                    <label class="layui-form-label">默认文集</label>
+                    <div class="layui-input-inline">
+                        <select name="project" lay-verify="required" id="project-list">
+                            <option value="0" >请选择文集</option>
+                        </select>
+                    </div>
+                    <button class="layui-btn layui-btn-primary" type="button" id="getProjects">更新文集列表</button>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">鼠标自动选择</label>
@@ -67,11 +79,14 @@
                         <button class="layui-btn layui-btn-normal" type="button" id="save-btn">保存</button>
                     </div>
                 </div>
-                <a class="register-link" href="http://mrdoc.zmister.com" target="_blank">帮助</a> - 
-                <a class="register-link" href="https://gitee.com/zmister/MrDoc/" target="_blank">码云</a> - 
-                <a class="register-link" href="https://github.com/zmister2016/MrDoc" target="_blank">GitHub</a> -
-                <a class="register-link" id="wx_qrcode" href="javascript:void(0);">微信公众号</a> - 
-                <a class="register-link" id="dashang" href="javascript:void(0);">打赏项目</a>                
+                <div class="layui-form-item" style="text-align: center;">
+                    <a class="register-link" href="http://mrdoc.zmister.com" target="_blank">帮助</a> - 
+                    <a class="register-link" href="https://gitee.com/zmister/MrDoc/" target="_blank">码云</a> - 
+                    <a class="register-link" href="https://github.com/zmister2016/MrDoc" target="_blank">GitHub</a> -
+                    <a class="register-link" id="wx_qrcode" href="javascript:void(0);">微信公众号</a> - 
+                    <a class="register-link" id="dashang" href="javascript:void(0);">打赏项目</a>  
+                </div>
+              
             </div>
         </div>
     </div>

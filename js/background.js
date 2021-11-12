@@ -1,6 +1,43 @@
 var self = this;
 var chromeSchemeReg = /chrome:\/\/.*/ig; // Chrome配置项地址的正则表达式
-layer = layui.layer;
+var layer = layui.layer;
+
+// 初始化URL和Token
+var opt = chrome.storage.local
+// 获取mrdoc地址
+opt.get(['serverUrl'],function(r){
+    self.url = r['serverUrl'];
+    // 获取账户token
+    opt.get(['accountKey'],function(r){
+        self.token = r['accountKey'];
+    })
+})
+
+// 右键菜单
+chrome.contextMenus.create({
+    title: "快速保存到觅道文档",
+    contexts: ['selection'],
+    onclick: function(params){
+        // console.log(params)
+        // alert(params)
+        console.log(self.url)
+        chrome.storage.local.get(['defaultProject'], function(r){
+            // console.log(r['defaultProject'])
+            if(r['defaultProject']){
+                var now_date = new Date()
+                var data = {
+                    title:now_date.toLocaleString(),
+                    doc:params.selectionText,
+                    pid:r['defaultProject']
+                }
+                saveDoc(data);
+            }else{
+                layer.msg("未配置默认文集")
+            }
+        });
+
+    }
+});
 
 // 侦听来自popup的消息
 chrome.runtime.onMessage.addListener(function(request, sender,sendResponse) {
@@ -97,7 +134,7 @@ jQuerySetUp = function() {
         //     };
         // },
         beforeSend: function(xhr) {
-            xhr.setRequestHeader('UserClient', 'inote_web_chromeext/3.1.0');
+            xhr.setRequestHeader('UserClient', 'mrdoc_webclipper_chrome/0.1.0');
         }
     });
 };
@@ -189,8 +226,20 @@ checkToken =  function(callback){
 
 // 保存文档
 saveDoc = function(data){
-    var self = this;
+    // var self = this;
     // console.log(data);
+    if(self.url == undefined){
+        // 初始化URL和Token
+        var opt = chrome.storage.local
+        // 获取mrdoc地址
+        opt.get(['serverUrl'],function(r){
+            self.url = r['serverUrl'];
+            // 获取账户token
+            opt.get(['accountKey'],function(r){
+                self.token = r['accountKey'];
+            })
+        })
+    }
     $.post(self.url+'/api/create_doc/?token='+self.token,data,function(r){
         // var layer = layui.layer;
         layer.closeAll('loading')
