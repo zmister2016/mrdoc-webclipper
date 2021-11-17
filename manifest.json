@@ -35,14 +35,8 @@
 	],
 	"options_page": "options.html",
 	"permissions": [ 
-		"tabs", 
-		"cookies", 
-		"management", 
-		"pageCapture", 
+		"activeTab",
 		"notifications", 
-		"http://*/*", 
-		"https://*/*", 
-		"unlimitedStorage", 
 		"storage" ,
 		"contextMenus"
 	],
