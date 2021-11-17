@@ -185,7 +185,7 @@ getMouseSelectStatus = function(){
 getMouseSelectStatus();
 
 
-// 处理background发送来的页面剪藏内容，将其添加到文本编辑器中
+// 处理mrdocclipper发送来的页面剪藏内容，将其添加到文本编辑器中
 actionfrompopupinspecotrHandler = function(data) {
     var self = this;
     console.log("开始处理background发送来的内容")
@@ -199,8 +199,12 @@ actionfrompopupinspecotrHandler = function(data) {
         parent.postMessage({
             name: 'resetfrommrdocpopup'
         }, '*');
+        // 发消息给background，让其处理文本内容中的图片
+        chrome.runtime.sendMessage({ 
+            name: 'uploadcontentimages',
+            data:data.content
+        });
         if (data.title) {
-            //for auto extract content
             self.title.val(data.title);
         }
     } else {// 如果不存在add属性，则移除ID所属的元素内容
@@ -256,11 +260,19 @@ pasteImageHandler = function(url){
     self.editor.replaceSelection("![](" + url + ")\n\n")
 }
 
+// 处理background上传图片后的内容
+contentImagesHandler = function(data){
+    console.log(data);
+    let content = self.editor.getValue()
+    content = content.replace('![]('+data.img_url+')','![]('+data.img_new_url+')')
+    self.editor.setValue(content)
+}
+
 // popup侦听消息
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     if (!sender || sender.id !== chrome.i18n.getMessage("@@extension_id")) return;
     switch (request.name) {
-        case 'actionfrompopupinspecotr': // background将页面标记的数据发送过来
+        case 'actionfrompopupinspecotr': // mrdocclipper将页面标记的数据发送过来
             self.actionfrompopupinspecotrHandler(request.data);
             break;
         case 'checktokenvalue':
@@ -271,6 +283,8 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         case 'selectprojectsvalue':
             selectProjectsHandler(request.data);
             break;
+        case 'handlecontentimages': // background将处理图片后的文本内容发送过来
+            contentImagesHandler(request.data);
         default:
             break;
     }

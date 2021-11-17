@@ -110,34 +110,6 @@ form.on('switch(mouseAutoSelect)', function(data){
     mrdocClipperOptions.set({'mouseAutoSelect':data.elem.checked})
   }); 
 
-
-//显示微信公众号二维码图片
-$("#wx_qrcode").click(function(r){
-    var layer = layui.layer;
-    layer.open({
-        type: 1,
-        title: false,
-        closeBtn: 0,
-        area: ['auto'],
-        skin: 'layui-layer-nobg', //没有背景色
-        shadeClose: true,
-        content: $('#wx_qrcode_img')
-      });
-})
-
-// 显示打赏图片
-$("#dashang").click(function(r){
-    var layer = layui.layer;
-    layer.open({
-        type: 1,
-        title: false,
-        closeBtn: 0,
-        area: ['400px','400px'],
-        shadeClose: true,
-        content: $('#dashang_img')
-      });
-})
-
 // 获取文集
 getProjects = function(){
     var self = this;

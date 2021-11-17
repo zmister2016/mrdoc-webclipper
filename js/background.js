@@ -15,7 +15,7 @@ opt.get(['serverUrl'],function(r){
 
 // 右键菜单
 chrome.contextMenus.create({
-    title: "快速保存到觅道文档",
+    title: "快速保存到MrDoc",
     contexts: ['selection'],
     onclick: function(params){
         // console.log(params)
@@ -66,13 +66,21 @@ chrome.runtime.onMessage.addListener(function(request, sender,sendResponse) {
                 });
             });
             break;
-        case 'selectprojects':
+        case 'selectprojects': // 选择文集
             selectProjects(request.data,function(projects){
                 chrome.tabs.sendMessage(sender.tab.id,{
                     name:'selectprojectsvalue',
                     data:projects
                 });
             })
+            break;
+        case 'uploadcontentimages': // 上传文档中的图片
+            handleContentImgs(request.data,function(data){
+                chrome.tabs.sendMessage(sender.tab.id,{
+                    name:'handlecontentimages',
+                    data:data
+                });
+            });
             break;
         case 'image2base64':
             getImgBase64(request.data,function(url){
@@ -224,54 +232,6 @@ checkToken =  function(callback){
     })
 };
 
-// 保存文档
-saveDoc = function(data){
-    // var self = this;
-    // console.log(data);
-    if(self.url == undefined){
-        // 初始化URL和Token
-        var opt = chrome.storage.local
-        // 获取mrdoc地址
-        opt.get(['serverUrl'],function(r){
-            self.url = r['serverUrl'];
-            // 获取账户token
-            opt.get(['accountKey'],function(r){
-                self.token = r['accountKey'];
-            })
-        })
-    }
-    $.post(self.url+'/api/create_doc/?token='+self.token,data,function(r){
-        // var layer = layui.layer;
-        layer.closeAll('loading')
-        if(r.status){
-            //消息提示
-            notifyTipsSucce('文档已保存成功，你可以前往mrdoc站点查看和修改！')
-            //关闭popup  
-            self.closePopup()                       
-        }else{
-            //消息提示
-            notifyTipsFail("文档保存失败！")
-        }
-    });
-};
-
-// 粘贴上传图片
-pasteImg = function(data,callback){
-    //console.log(data)
-    $.post(self.url+'/api/upload_img/?token='+self.token,{data:data}, function (ret) {
-        if (ret.success === 1) {
-            //新一行的图片显示
-            console.log("上传图片成功")
-            //console.log(ret.url)
-            callback(ret.url)
-            notifyTipsSucce("图片上传成功")
-        }else{
-            console.log("上传图片失败")
-            notifyTipsFail("图片上传失败！")
-        }
-    });
-};
-
 // 获取文集
 selectProjects = function(data,callback){
     var self = this;
@@ -300,7 +260,105 @@ selectProjects = function(data,callback){
     });
 };
 
-// 获取外链图片base64编码
+// 保存文档
+saveDoc = function(data){
+    // var self = this;
+    // console.log(data);
+    if(self.url == undefined){
+        // 初始化URL和Token
+        var opt = chrome.storage.local
+        // 获取mrdoc地址
+        opt.get(['serverUrl'],function(r){
+            self.url = r['serverUrl'];
+            // 获取账户token
+            opt.get(['accountKey'],function(r){
+                self.token = r['accountKey'];
+            })
+        })
+    }
+    $.ajax({
+        url:self.url+'/api/create_doc/?token='+self.token,
+        type:"post",
+        data:data,
+        success:function(r){
+            if(r.status){
+                //消息提示
+                notifyTipsSucce('文档已保存成功！')
+                //关闭popup  
+            //关闭popup  
+                //关闭popup  
+            //关闭popup  
+                //关闭popup  
+                self.closePopup()                       
+            self.closePopup()                       
+                self.closePopup()                       
+            self.closePopup()                       
+                self.closePopup()                       
+            }else{
+                //消息提示
+                notifyTipsFail("文档保存失败！")
+            }
+        },error:function(){
+            notifyTipsFail("文档保存异常！")
+        }
+    })
+};
+
+// 处理文本中的图片
+handleContentImgs = function(content,callback){
+    // 提取 Markdown 中的图片
+    const pattern = /!\[(.*?)\]\((.*?)\)/mg;
+    var matcher;
+    while ((matcher = pattern.exec(content)) !== null) {
+        console.log(matcher);
+        var img_url = matcher[2];
+        console.log(img_url)
+        self.getImageBase64(matcher[2],function(d){
+            // console.log(img_url,url)
+            let data = {'img_url':d.img_url,'img_new_url':d.img_new_url}
+            console.log(data)
+            callback(data)
+        })
+    }
+};
+
+// 粘贴上传图片
+pasteImg = function(data,callback){
+    //console.log(data)
+    $.post(self.url+'/api/upload_img/?token='+self.token,{data:data}, function (ret) {
+        if (ret.success === 1) {
+            //新一行的图片显示
+            console.log("上传图片成功")
+            //console.log(ret.url)
+            callback(ret.url)
+            notifyTipsSucce("图片上传成功")
+        }else{
+            console.log("上传图片失败")
+            notifyTipsFail("图片上传失败！")
+        }
+    });
+};
+
+// 上传base64数据图片
+uploadImgBase64 = function(data,callback){
+    //console.log(data)
+    $.post(self.url+'/api/upload_img/?token='+self.token,{data:data.base}, function (ret) {
+        if (ret.success === 1) {
+            //新一行的图片显示
+            console.log("上传图片成功")
+            //console.log(ret.url)
+            let img_info = {'img_url':data.url,'img_new_url':ret.url}
+            callback(img_info)
+            notifyTipsSucce("图片上传成功")
+        }else{
+            console.log("上传图片失败")
+            notifyTipsFail("图片上传失败！")
+        }
+    });
+};
+
+
+// 获取外链图片base64编码 - 用于粘贴上传图片
 getImgBase64 = function(data,callback){
     window.URL = window.URL || window.webkitURL;
     var xhr = new XMLHttpRequest();
@@ -319,6 +377,33 @@ getImgBase64 = function(data,callback){
                 let base64 = e.target.result;
                 //console.log("图片base64", base64)
                 self.pasteImg(base64,callback)
+            };
+        oFileReader.readAsDataURL(blob);
+    }
+  }
+  xhr.send();
+}
+
+// 获取外链图片base64编码 - 用于转存内容的外链图片
+getImageBase64 = function(data,callback){
+    window.URL = window.URL || window.webkitURL;
+    var xhr = new XMLHttpRequest();
+    xhr.open("get", data, true);
+    // 至关重要
+    xhr.responseType = "blob";
+    xhr.onload = function(){
+        if(this.status == 200){
+            //得到一个blob对象
+            var blob = this.response;
+            console.log("blob", blob)
+            // 至关重要
+            let oFileReader = new FileReader();
+            oFileReader.onloadend = function (e) {
+                // 此处拿到的已经是 base64的图片了
+                let base64 = e.target.result;
+                let img_info = {'base':base64,'url':data}
+                //console.log("图片base64", base64)
+                self.uploadImgBase64(img_info,callback)
             };
         oFileReader.readAsDataURL(blob);
     }
