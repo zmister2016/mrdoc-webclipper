@@ -32,6 +32,21 @@
                     form.render('checkbox');
                 }
             });
+            // 外链图片转存
+            mrdocClipperOptions.get(['imgAutoUpload'], function(r){
+                console.log(r)
+                if(r['imgAutoUpload']){
+                    // 设置启用
+                    // console.log('鼠标自动选择')
+                    $('input[name="img-auto-upload"]').prop('checked',true)
+                    form.render('checkbox');                         
+                }else{
+                    // 设置关闭
+                    // console.log('鼠标手动选择')
+                    $('input[name="img-auto-upload"]').prop('checked',false)
+                    form.render('checkbox');
+                }
+            });
             // 默认文集
             mrdocClipperOptions.get(['defaultProject'], function(r){
                 console.log(r['defaultProject'])
@@ -42,12 +57,6 @@
                     form.render('select');                         
                 }
             });
-            //转存图片
-            // mrdocClipperOptions.get(['retrieveImg'],function(r){
-            //     if(r['retrieveImg'] == true){
-            //         $("#retrieveimage").prop('checked',true);
-            //     }
-            // });
         }
     }
 	$(function(){
@@ -108,7 +117,15 @@ form.on('switch(mouseAutoSelect)', function(data){
     // console.log(data.value); //开关value值，也可以通过data.elem.value得到
     mrdocClipperOptions = chrome.storage.local
     mrdocClipperOptions.set({'mouseAutoSelect':data.elem.checked})
-  }); 
+}); 
+
+// 监听「外链图片转存」开关
+form.on('switch(imgAutoUpload)', function(data){
+    // console.log(data.elem.checked); //开关是否开启，true或者false
+    // console.log(data.value); //开关value值，也可以通过data.elem.value得到
+    mrdocClipperOptions = chrome.storage.local
+    mrdocClipperOptions.set({'imgAutoUpload':data.elem.checked})
+}); 
 
 // 获取文集
 getProjects = function(){

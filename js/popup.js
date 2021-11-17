@@ -199,10 +199,15 @@ actionfrompopupinspecotrHandler = function(data) {
         parent.postMessage({
             name: 'resetfrommrdocpopup'
         }, '*');
-        // 发消息给background，让其处理文本内容中的图片
-        chrome.runtime.sendMessage({ 
-            name: 'uploadcontentimages',
-            data:data.content
+        // 如果开启了「外链图片转存」，发消息给background，让其处理文本内容中的图片
+        mrdocClipperOptions.get(['imgAutoUpload'], function(r){
+            console.log(r)
+            if(r['imgAutoUpload']){
+                chrome.runtime.sendMessage({ 
+                    name: 'uploadcontentimages',
+                    data:data.content
+                });        
+            }
         });
         if (data.title) {
             self.title.val(data.title);
