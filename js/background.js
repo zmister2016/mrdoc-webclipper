@@ -313,12 +313,14 @@ handleContentImgs = function(content,callback){
         console.log(matcher);
         var img_url = matcher[2];
         console.log(img_url)
-        self.getImageBase64(matcher[2],function(d){
-            // console.log(img_url,url)
-            let data = {'img_url':d.img_url,'img_new_url':d.img_new_url}
-            console.log(data)
-            callback(data)
-        })
+        if(img_url.substr(0,4) == 'http'){ // 只处理http开头的外链图片
+            self.getImageBase64(matcher[2],function(d){
+                // console.log(img_url,url)
+                let data = {'img_url':d.img_url,'img_new_url':d.img_new_url}
+                console.log(data)
+                callback(data)
+            })
+        }
     }
 };
 
