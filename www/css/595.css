@@ -1,0 +1,12 @@
+
+.q-mb-lg {
+  margin-bottom: 0px;
+}
+.q-toolbar__title {
+  /* text-align: center; */
+}
+.option-btns {
+  display: flex;
+  justify-content: space-between;
+}
+

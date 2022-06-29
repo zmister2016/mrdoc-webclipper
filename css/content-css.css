@@ -1,0 +1,81 @@
+/* Global CSS used within your BEX. This is not preprocessed so this has to be pure CSS. */
+.target-some-header-class {
+  margin-top: 62px;
+}
+#mrdoc-clipper-div {
+  position: fixed;
+  right: 8px;
+  top: 8px;
+  width: 450px;
+  height: 550px;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 99999999;
+  border-radius: 1px;
+  box-shadow: rgba(51, 51, 51, 0.498039) 0px 0px 8px 0px;
+  overflow: hidden;
+  display: none;
+}
+
+#mrdoc-clipper-search-toolbar-div {
+  z-index: 99999997;
+  position: fixed;
+  top: 10px;
+  right: 5px;
+  margin: auto;
+  width: 500px;
+  height: 300px;
+  max-height: 300px;
+  justify-content: center;
+  border-radius: 10px;
+  display: none;
+}
+
+/* 搜索按钮 */
+#mrdoc-clipper-search-btn {
+  width: 65px;
+  height: 15px;
+  position: fixed;
+  right: 0;
+  top: 30px;
+  z-index: 99999997;
+  padding-top: 6px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  cursor: pointer;
+  background: gray;
+  /* opacity: 0.5; */
+  display: flex;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+/* 搜索按钮图标 */
+#mrdoc-clipper-search-icon {
+  padding-right: 15px;
+  margin-right: 5px;
+  width: 15px;
+  height: 15px;
+  border-radius: 100%;
+  border: 3px solid white;
+  position: relative;
+}
+
+#mrdoc-clipper-search-icon:after {
+  content: "";
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  transform: rotate(45deg);
+  width: 6px;
+  height: 3px;
+  background-color: white;
+  border-radius: 6px;
+}
+
+/* 搜索按钮文本 */
+#mrdoc-clipper-search-text {
+  color: white;
+  font-size: 16px;
+  line-height: 21px;
+}

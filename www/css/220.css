@@ -1,0 +1,26 @@
+
+.q-mb-lg {
+  margin-bottom: 0px;
+}
+.item-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+.item-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* iconfont样式 */
+.icon {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}
+.q-field__before,
+.q-field__prepend {
+  padding-right: 0px;
+}
+

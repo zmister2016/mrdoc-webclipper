@@ -1,20 +1,29 @@
 # MrDoc 速记
 
-#### 介绍
-[MrDoc](https://gitee.com/zmister/MrDoc)官方Chrome浏览器扩展。
+[MrDoc 觅思文档](https://gitee.com/zmister/MrDoc)的官方浏览器扩展。
 
-支持快速记录文档、剪藏网页内容、转存网页图片等功能。
+支持快速记录文档、剪藏网页内容、转存网页图片、搜索个人文档等功能，支持 Chromium 系列浏览器和 Firefox 浏览器。
 
-经测试，在以下浏览器可用：
+在以下浏览器测试可用：
 
 - Chrome
 - Edge
 - 360极速浏览器
-
+- Firefox
 
 #### 安装教程
 
-1.  下载源码，解压到本地；
+## Edge 应用商店
+
+地址：https://microsoftedge.microsoft.com/addons/detail/dihimgafbjljdfanobikhnolpmjjhpic
+
+## Firefox 应用商店
+
+地址：https://addons.mozilla.org/zh-CN/firefox/addon/mrdoc-webclipper/
+
+## 手动安装
+
+1.  下载程序包，解压到本地；
 2.  浏览器「扩展」选项卡点击开启「开发者模式」
 3.  点击「加载已解压的扩展程序」，选择解压的「mrdoc-webclipper」
 
@@ -24,13 +33,6 @@
 2.  填写 MrDoc 服务的 URL 地址和用户 Token；
 3.  点击「验证」按钮，确保验证 token 成功；
 4.  点击「保存」按钮；
-
-#### 参与贡献
-
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
 
 #### 反馈与交流
 
