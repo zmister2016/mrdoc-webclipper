@@ -33,7 +33,3 @@
 2.  填写 MrDoc 服务的 URL 地址和用户 Token；
 3.  点击「验证」按钮，确保验证 token 成功；
 4.  点击「保存」按钮；
-
-#### 反馈与交流
-
-<p>QQ群：735507293 <a href="http://shang.qq.com/wpa/qunwpa?idkey=143c23a4ffbd0ba9137d2bce3ee86c83532c05259a0542a69527e36615e64dba"><img src="http://pub.idqqimg.com/wpa/images/group.png" /></a></p>

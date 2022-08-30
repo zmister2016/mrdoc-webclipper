@@ -31,21 +31,21 @@ export default function attachContentHooks(bridge) {
   bridge.on("getPageTitle", (event) => {
     const title = document.title;
     // Not required but resolve our promise.
-    bridge.send("returnPageTitle", { title: title });
+    bridge.send(event.eventResponseKey, { title: title });
   });
   // 获取网页标题和链接
   bridge.on("getPageTitleAndLink", (event) => {
     const title = document.title;
     const link = document.location.href;
     // Not required but resolve our promise.
-    bridge.send("returnPageTitleAndLink", { title: title, link: link });
+    bridge.send(event.eventResponseKey, { title: title, link: link });
   });
   // 获取网页正文
   bridge.on("getPageBody", (event) => {
     const url = document.location.href;
     Mercury.parse(url).then((result) => {
       // console.log(result);
-      bridge.send("returnPageBody", result);
+      bridge.send(event.eventResponseKey, result);
     });
   }),
     // 获取整个网页

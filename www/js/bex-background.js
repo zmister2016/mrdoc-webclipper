@@ -6405,16 +6405,16 @@ function attachBackgroundHooks(bridge
           });
         }
 
-        bridge.send("returnProjects", {
+        bridge.send(event.eventResponseKey, {
           data: projects
         });
       } else {
-        bridge.send("returnProjects", {
+        bridge.send(event.eventResponseKey, {
           data: false
         });
       }
     }).catch(() => {
-      bridge.send("returnProjects", {
+      bridge.send(event.eventResponseKey, {
         data: false
       });
     });
@@ -6430,19 +6430,19 @@ function attachBackgroundHooks(bridge
       data: imgData
     }).then(r => {
       if (r.data.success == 1) {
-        bridge.send("returnPasteImg", {
+        bridge.send(event.eventResponseKey, {
           status: true,
           data: r.data.url
         });
       } else {
-        bridge.send("returnPasteImg", {
+        bridge.send(event.eventResponseKey, {
           status: false,
           data: "上传失败"
         });
       }
     }).catch(error => {
       console.log(error);
-      bridge.send("returnPasteImg", {
+      bridge.send(event.eventResponseKey, {
         status: false,
         data: "上传异常"
       });
@@ -6500,18 +6500,18 @@ function attachBackgroundHooks(bridge
     }).then(r => {
       // console.log(r);
       if (r.data.status) {
-        bridge.send("returnSaveDoc", {
+        bridge.send(event.eventResponseKey, {
           status: true
         });
       } else {
-        bridge.send("returnSaveDoc", {
+        bridge.send(event.eventResponseKey, {
           status: false,
           data: r.data.data
         });
       }
     }).catch(error => {
       console.log(error);
-      bridge.send("returnSaveDoc", {
+      bridge.send(event.eventResponseKey, {
         status: false,
         data: "保存文档异常"
       });
@@ -6527,17 +6527,17 @@ function attachBackgroundHooks(bridge
     }).then(r => {
       // console.log(r)
       if (r.data.status) {
-        bridge.send("returnSearchDoc", {
+        bridge.send(event.eventResponseKey, {
           data: r.data.data
         });
       } else {
-        bridge.send("returnSearchDoc", {
+        bridge.send(event.eventResponseKey, {
           data: []
         });
       }
     }).catch(e => {
       console.log(e);
-      bridge.send("returnSearchDoc", {
+      bridge.send(event.eventResponseKey, {
         data: []
       });
     });

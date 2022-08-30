@@ -68283,7 +68283,7 @@ function attachContentHooks(bridge) {
   bridge.on("getPageTitle", event => {
     const title = document.title; // Not required but resolve our promise.
 
-    bridge.send("returnPageTitle", {
+    bridge.send(event.eventResponseKey, {
       title: title
     });
   }); // 获取网页标题和链接
@@ -68292,7 +68292,7 @@ function attachContentHooks(bridge) {
     const title = document.title;
     const link = document.location.href; // Not required but resolve our promise.
 
-    bridge.send("returnPageTitleAndLink", {
+    bridge.send(event.eventResponseKey, {
       title: title,
       link: link
     });
@@ -68302,7 +68302,7 @@ function attachContentHooks(bridge) {
     const url = document.location.href;
     mercury_default().parse(url).then(result => {
       // console.log(result);
-      bridge.send("returnPageBody", result);
+      bridge.send(event.eventResponseKey, result);
     });
   }), // 获取整个网页
   bridge.on("getEntirePage", event => {}), // 开启鼠标选择

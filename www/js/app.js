@@ -229,13 +229,13 @@ const routes = [// {
   }
 }, {
   path: "/options",
-  component: () => Promise.all(/* import() */[__webpack_require__.e(736), __webpack_require__.e(595)]).then(__webpack_require__.bind(__webpack_require__, 9595)),
+  component: () => Promise.all(/* import() */[__webpack_require__.e(736), __webpack_require__.e(778)]).then(__webpack_require__.bind(__webpack_require__, 5778)),
   meta: {
     title: "选项页 - MrDoc速记"
   }
 }, {
   path: "/popup",
-  component: () => Promise.all(/* import() */[__webpack_require__.e(736), __webpack_require__.e(841)]).then(__webpack_require__.bind(__webpack_require__, 2715)),
+  component: () => Promise.all(/* import() */[__webpack_require__.e(736), __webpack_require__.e(744)]).then(__webpack_require__.bind(__webpack_require__, 9224)),
   meta: {
     title: "弹出页 - MrDoc速记"
   }
@@ -896,7 +896,7 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 		};
 /******/ 		
 /******/ 		__webpack_require__.f.miniCss = (chunkId, promises) => {
-/******/ 			var cssChunks = {"220":1,"595":1,"841":1};
+/******/ 			var cssChunks = {"220":1,"744":1,"778":1};
 /******/ 			if(installedCssChunks[chunkId]) promises.push(installedCssChunks[chunkId]);
 /******/ 			else if(installedCssChunks[chunkId] !== 0 && cssChunks[chunkId]) {
 /******/ 				promises.push(installedCssChunks[chunkId] = loadStylesheet(chunkId).then(() => {

@@ -60,13 +60,13 @@ export default function attachBackgroundHooks(
               value: r.data.data[i]["id"].toString(),
             });
           }
-          bridge.send("returnProjects", { data: projects });
+          bridge.send(event.eventResponseKey, { data: projects });
         } else {
-          bridge.send("returnProjects", { data: false });
+          bridge.send(event.eventResponseKey, { data: false });
         }
       })
       .catch(() => {
-        bridge.send("returnProjects", { data: false });
+        bridge.send(event.eventResponseKey, { data: false });
       });
   });
   // 粘贴上传图片
@@ -83,14 +83,23 @@ export default function attachBackgroundHooks(
       })
       .then((r) => {
         if (r.data.success == 1) {
-          bridge.send("returnPasteImg", { status: true, data: r.data.url });
+          bridge.send(event.eventResponseKey, {
+            status: true,
+            data: r.data.url,
+          });
         } else {
-          bridge.send("returnPasteImg", { status: false, data: "上传失败" });
+          bridge.send(event.eventResponseKey, {
+            status: false,
+            data: "上传失败",
+          });
         }
       })
       .catch((error) => {
         console.log(error);
-        bridge.send("returnPasteImg", { status: false, data: "上传异常" });
+        bridge.send(event.eventResponseKey, {
+          status: false,
+          data: "上传异常",
+        });
       });
   });
   // 上传URL图片
@@ -149,14 +158,20 @@ export default function attachBackgroundHooks(
       .then((r) => {
         // console.log(r);
         if (r.data.status) {
-          bridge.send("returnSaveDoc", { status: true });
+          bridge.send(event.eventResponseKey, { status: true });
         } else {
-          bridge.send("returnSaveDoc", { status: false, data: r.data.data });
+          bridge.send(event.eventResponseKey, {
+            status: false,
+            data: r.data.data,
+          });
         }
       })
       .catch((error) => {
         console.log(error);
-        bridge.send("returnSaveDoc", { status: false, data: "保存文档异常" });
+        bridge.send(event.eventResponseKey, {
+          status: false,
+          data: "保存文档异常",
+        });
       });
   });
   // 搜索文档
@@ -171,14 +186,14 @@ export default function attachBackgroundHooks(
       .then((r) => {
         // console.log(r)
         if (r.data.status) {
-          bridge.send("returnSearchDoc", { data: r.data.data });
+          bridge.send(event.eventResponseKey, { data: r.data.data });
         } else {
-          bridge.send("returnSearchDoc", { data: [] });
+          bridge.send(event.eventResponseKey, { data: [] });
         }
       })
       .catch((e) => {
         console.log(e);
-        bridge.send("returnSearchDoc", { data: [] });
+        bridge.send(event.eventResponseKey, { data: [] });
       });
   });
   /*

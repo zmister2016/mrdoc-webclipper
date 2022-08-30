@@ -12851,6 +12851,64 @@ module.exports = {
 
 /***/ }),
 
+/***/ 990:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var core_js_modules_es_array_includes_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6727);
+/* harmony import */ var core_js_modules_es_array_includes_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_includes_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(9835);
+/* harmony import */ var _utils_private_create_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(5987);
+/* harmony import */ var _utils_private_render_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(2026);
+
+
+
+
+const alignValues = ['top', 'middle', 'bottom'];
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_utils_private_create_js__WEBPACK_IMPORTED_MODULE_1__/* .createComponent */ .L)({
+  name: 'QBadge',
+  props: {
+    color: String,
+    textColor: String,
+    floating: Boolean,
+    transparent: Boolean,
+    multiLine: Boolean,
+    outline: Boolean,
+    rounded: Boolean,
+    label: [Number, String],
+    align: {
+      type: String,
+      validator: v => alignValues.includes(v)
+    }
+  },
+
+  setup(props, {
+    slots
+  }) {
+    const style = (0,vue__WEBPACK_IMPORTED_MODULE_2__/* .computed */ .Fl)(() => {
+      return props.align !== void 0 ? {
+        verticalAlign: props.align
+      } : null;
+    });
+    const classes = (0,vue__WEBPACK_IMPORTED_MODULE_2__/* .computed */ .Fl)(() => {
+      const text = props.outline === true ? props.color || props.textColor : props.textColor;
+      return 'q-badge flex inline items-center no-wrap' + ` q-badge--${props.multiLine === true ? 'multi' : 'single'}-line` + (props.outline === true ? ' q-badge--outline' : props.color !== void 0 ? ` bg-${props.color}` : '') + (text !== void 0 ? ` text-${text}` : '') + (props.floating === true ? ' q-badge--floating' : '') + (props.rounded === true ? ' q-badge--rounded' : '') + (props.transparent === true ? ' q-badge--transparent' : '');
+    });
+    return () => (0,vue__WEBPACK_IMPORTED_MODULE_2__.h)('div', {
+      class: classes.value,
+      style: style.value,
+      role: 'alert',
+      'aria-label': props.label
+    }, (0,_utils_private_render_js__WEBPACK_IMPORTED_MODULE_3__/* .hMergeSlot */ .vs)(slots.default, props.label !== void 0 ? [props.label] : []));
+  }
+
+}));
+
+/***/ }),
+
 /***/ 8479:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
