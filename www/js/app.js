@@ -235,7 +235,7 @@ const routes = [// {
   }
 }, {
   path: "/popup",
-  component: () => Promise.all(/* import() */[__webpack_require__.e(736), __webpack_require__.e(744)]).then(__webpack_require__.bind(__webpack_require__, 9224)),
+  component: () => Promise.all(/* import() */[__webpack_require__.e(736), __webpack_require__.e(795)]).then(__webpack_require__.bind(__webpack_require__, 8282)),
   meta: {
     title: "弹出页 - MrDoc速记"
   }
@@ -896,7 +896,7 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 		};
 /******/ 		
 /******/ 		__webpack_require__.f.miniCss = (chunkId, promises) => {
-/******/ 			var cssChunks = {"220":1,"744":1,"778":1};
+/******/ 			var cssChunks = {"220":1,"778":1,"795":1};
 /******/ 			if(installedCssChunks[chunkId]) promises.push(installedCssChunks[chunkId]);
 /******/ 			else if(installedCssChunks[chunkId] !== 0 && cssChunks[chunkId]) {
 /******/ 				promises.push(installedCssChunks[chunkId] = loadStylesheet(chunkId).then(() => {
