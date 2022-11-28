@@ -229,7 +229,7 @@ const routes = [// {
   }
 }, {
   path: "/options",
-  component: () => Promise.all(/* import() */[__webpack_require__.e(736), __webpack_require__.e(778)]).then(__webpack_require__.bind(__webpack_require__, 5778)),
+  component: () => Promise.all(/* import() */[__webpack_require__.e(736), __webpack_require__.e(468)]).then(__webpack_require__.bind(__webpack_require__, 2468)),
   meta: {
     title: "选项页 - MrDoc速记"
   }
@@ -896,7 +896,7 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 		};
 /******/ 		
 /******/ 		__webpack_require__.f.miniCss = (chunkId, promises) => {
-/******/ 			var cssChunks = {"220":1,"778":1,"795":1};
+/******/ 			var cssChunks = {"220":1,"468":1,"795":1};
 /******/ 			if(installedCssChunks[chunkId]) promises.push(installedCssChunks[chunkId]);
 /******/ 			else if(installedCssChunks[chunkId] !== 0 && cssChunks[chunkId]) {
 /******/ 				promises.push(installedCssChunks[chunkId] = loadStylesheet(chunkId).then(() => {
